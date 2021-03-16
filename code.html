@@ -121,7 +121,8 @@ data.splice(0,data.length);
 connection.write("setInterval(function(){Bluetooth.println(resp().toFixed(3));} ,20); \n", function() { });
   
 var p = mag;
-past = [past, p];
+var past = [past, p];
+print(past);
 
 t = new Date();
 
