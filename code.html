@@ -52,11 +52,8 @@ data.push([t, 1000.000]);
 var date_win_min = t.getTime();
 
 var date_win_max = date_win_min + 2*taxis_increment;
-	
-var delayed = [];
 
-
-var g = new Dygraph(document.getElementById("div_g"), delayed,
+var g = new Dygraph(document.getElementById("div_g"), (data+data(-1)+data(1))/3,
 
 {
 
@@ -97,7 +94,7 @@ g.updateOptions( { dateWindow : [date_win_min, date_win_max] } );
 
 data.push([x, y]);
 
-if ((data.length&15)==15) g.updateOptions( { 'file': delayed } );
+if ((data.length&15)==15) g.updateOptions( { 'file': data } );
 
 };
 
@@ -122,14 +119,6 @@ data.splice(0,data.length);
 
 connection.write("setInterval(function(){Bluetooth.println(resp().toFixed(3));} ,10); \n", function() { });
 
-initial	delayed = 0;
-always @(posedge i_clk)
-	if (i_ce)
-		delayed <= i_val;
-always @(posedge i_clk)
-	if (i_ce)
-		o_val <= i_val + delayed;
-  
  t = new Date();
 
 start_time = t;
