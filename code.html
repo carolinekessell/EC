@@ -1,27 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////
-//
-//
-`default_nettype	none
-//
-module	smplfir(i_clk, i_ce, i_val, o_val);
-	parameter			IW=15;
-	localparam			OW=IW+1;
-	input	wire			i_clk, i_ce;
-	input	wire	[(IW-1):0]	i_val;
-	output	reg	[(OW-1):0]	o_val;
-
-	reg	[(IW-1):0]	delayed;
-
-	initial	delayed = 0;
-	always @(posedge i_clk)
-	if (i_ce)
-		delayed <= i_val;
-
-	always @(posedge i_clk)
-	if (i_ce)
-		o_val <= i_val + delayed;
-
-endmodule
 <html>
 
 <head>
@@ -76,9 +52,11 @@ data.push([t, 1000.000]);
 var date_win_min = t.getTime();
 
 var date_win_max = date_win_min + 2*taxis_increment;
+	
+var delayed = [];
 
 
-var g = new Dygraph(document.getElementById("div_g"), data,
+var g = new Dygraph(document.getElementById("div_g"), delayed,
 
 {
 
@@ -119,7 +97,7 @@ g.updateOptions( { dateWindow : [date_win_min, date_win_max] } );
 
 data.push([x, y]);
 
-if ((data.length&15)==15) g.updateOptions( { 'file':  } );
+if ((data.length&15)==15) g.updateOptions( { 'file': delayed } );
 
 };
 
@@ -144,7 +122,6 @@ data.splice(0,data.length);
 
 connection.write("setInterval(function(){Bluetooth.println(resp().toFixed(3));} ,10); \n", function() { });
 
-data = (data() + data(-1) + data(1))/3;
 initial	delayed = 0;
 always @(posedge i_clk)
 	if (i_ce)
