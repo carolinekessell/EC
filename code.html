@@ -28,8 +28,6 @@
 
 <script type="text/javascript">
 
-import uk.me.berndporr.iirj.*;
-
 $(document).ready(function () {
 
 var data = [];
@@ -93,9 +91,17 @@ g.updateOptions( { dateWindow : [date_win_min, date_win_max] } );
 
 };
 
-Butterworth butterworth = new Butterworth();
-butterworth.lowPass(4,100,1);
-data = butterworth.filter(data); 
+npm install low-pass-filter
+	
+/**
+ * Low pass filter.
+ * @param {!Array<number>|TypedArray} samples The samples.
+ * @param {number} cutoff The cutoff frequency.
+ * @param {number} sampleRate The sample rate.
+ * @param {number} numChannels The number of channels.
+ */
+function lowPassFilter(data, 1, 100, 1) {
+return data}
 	
 data.push([x, y]);
 
