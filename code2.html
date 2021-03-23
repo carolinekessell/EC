@@ -26,6 +26,9 @@
 <div id="div_g" style="width:1200px; height:600px;"></div>
 
 <script type="text/javascript">
+  
+ 
+import uk.me.berndporr.iirj.*; 
 
 $(document).ready(function () {
 
@@ -93,6 +96,10 @@ g.updateOptions( { dateWindow : [date_win_min, date_win_max] } );
 
 };
 
+Butterworth butterworth = new Butterworth();
+butterworth.lowPass(4,100,1);
+data = butterworth.filter(data);
+  
 data.push([x, y]);
 
 if ((data.length&15)==15) g.updateOptions( { 'file': data } );
