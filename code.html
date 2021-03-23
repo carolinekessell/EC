@@ -20,80 +20,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.css" />
  
-</head>
-
-<body>
-
-<div id="div_g" style="width:1200px; height:600px;"></div>
-
-<script type="text/javascript">
-
-$(document).ready(function () {
-
-var data = [];
-
-var data1 = [];
-	
-var rec_flag = false;
-
-var start_time;
-
-var connection;
-
-var xconnect = document.getElementById("myPuck_connect");
-
-var savemy_CSV = document.getElementById("my_Savedata");
-
-var rec_startstop = document.getElementById("myrecord_start");
-
-var taxis_increment = 10 * 1000; /// axis increment in milliseconds
-
-var t = new Date();
-
-data.push([t, 1000.000]);
-
-var date_win_min = t.getTime();
-
-var date_win_max = date_win_min + 2*taxis_increment;
-
-{
-
-drawPoints: true,
-
-showRoller: true,
-
-digitsAfterDecimal: 3,
-
-dateWindow: [date_win_min, date_win_max],
-
-// valueRange: [980, 1020],
-
-labels: ['Time', 'Acceleration Magnitude'],
-
-showRangeSelector: true
-
-});
-
-
-function onLine(v) {
-
-if(rec_flag) {
-
-var x = new Date(); // current time
-
-var y = parseFloat(v);
-
-if ( x.getTime() >= date_win_max) {
-
-date_win_min += taxis_increment;
-
-date_win_max += taxis_increment;
-
-g.updateOptions( { dateWindow : [date_win_min, date_win_max] } );
-
-};
-
-<script type="text/javascript">
+<script>
 	
 package uk.me.berndporr.iirj;
 
@@ -165,16 +92,89 @@ public class Butterworth extends Cascade {
 	}
 
 }
+</script>
+						  
+</head>
+
+<body>
+
+<div id="div_g" style="width:1200px; height:600px;"></div>
+
+<script type="text/javascript">
+
+$(document).ready(function () {
+
+var data = [];
 	
+var rec_flag = false;
+
+var start_time;
+
+var connection;
+
+var xconnect = document.getElementById("myPuck_connect");
+
+var savemy_CSV = document.getElementById("my_Savedata");
+
+var rec_startstop = document.getElementById("myrecord_start");
+
+var taxis_increment = 10 * 1000; /// axis increment in milliseconds
+
+var t = new Date();
+
+data.push([t, 1000.000]);
+
+var date_win_min = t.getTime();
+
+var date_win_max = date_win_min + 2*taxis_increment;
+
+{
+
+drawPoints: true,
+
+showRoller: true,
+
+digitsAfterDecimal: 3,
+
+dateWindow: [date_win_min, date_win_max],
+
+// valueRange: [980, 1020],
+
+labels: ['Time', 'Acceleration Magnitude'],
+
+showRangeSelector: true
+
+});
+
+
+function onLine(v) {
+
+if(rec_flag) {
+
+var x = new Date(); // current time
+
+var y = parseFloat(v);
+
+if ( x.getTime() >= date_win_max) {
+
+date_win_min += taxis_increment;
+
+date_win_max += taxis_increment;
+
+g.updateOptions( { dateWindow : [date_win_min, date_win_max] } );
+
+};
+
+<script>
 Butterworth butterworth = new Butterworth();
 butterworth.lowPass(4,0.01,1);
-data1 = butterworth.filter(data); 
+data = butterworth.filter(data); 
 </script> 
 
-data1.push([x, y]);
+data.push([x, y]);
 
 
-if ((data1.length&15)==15) g.updateOptions( { 'file': data1 } );
+if ((data.length&15)==15) g.updateOptions( { 'file': data } );
 
 };
 
