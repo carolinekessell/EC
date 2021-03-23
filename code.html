@@ -20,7 +20,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.css" />
  
-<script>
+<script type="text/javascript">
 	
 package uk.me.berndporr.iirj;
 
@@ -165,11 +165,9 @@ g.updateOptions( { dateWindow : [date_win_min, date_win_max] } );
 
 };
 
-<script>
 Butterworth butterworth = new Butterworth();
 butterworth.lowPass(4,0.01,1);
 data = butterworth.filter(data); 
-</script> 
 
 data.push([x, y]);
 
