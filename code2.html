@@ -13,15 +13,12 @@
 <script src="https://www.puck-js.com/puck.js"></script>
 
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
- 
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/low-pass-filter"></script>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.js"></script>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.css" />
-						  
+
+
 </head>
 
 <body>
@@ -29,12 +26,11 @@
 <div id="div_g" style="width:1200px; height:600px;"></div>
 
 <script type="text/javascript">
-  
 
 $(document).ready(function () {
 
 var data = [];
-	
+
 var rec_flag = false;
 
 var start_time;
@@ -57,6 +53,9 @@ var date_win_min = t.getTime();
 
 var date_win_max = date_win_min + 2*taxis_increment;
 
+
+var g = new Dygraph(document.getElementById("div_g"), data,
+
 {
 
 drawPoints: true,
@@ -69,7 +68,7 @@ dateWindow: [date_win_min, date_win_max],
 
 // valueRange: [980, 1020],
 
-labels: ['Time', 'Acceleration Magnitude'],
+labels: ['Time', 'Pressure'],
 
 showRangeSelector: true
 
@@ -93,9 +92,8 @@ date_win_max += taxis_increment;
 g.updateOptions( { dateWindow : [date_win_min, date_win_max] } );
 
 };
-	
-data.push([x, y]);
 
+data.push([x, y]);
 
 if ((data.length&15)==15) g.updateOptions( { 'file': data } );
 
@@ -120,9 +118,9 @@ connection.write("clearInterval(1)\n", function() { });
 
 data.splice(0,data.length);
 
-connection.write("setInterval(function(){Bluetooth.println(resp().toFixed(3));} ,10); \n", function() { });
+connection.write("setInterval(function(){Bluetooth.println(ecg().toFixed(3));} ,10); \n", function() { });
 
- t = new Date();
+t = new Date();
 
 start_time = t;
 
@@ -259,3 +257,4 @@ rec_startstop.addEventListener("click", function () { startstop_record() } );
 </body>
 
 </html>
+
