@@ -270,7 +270,6 @@ public class Butterworth extends Cascade {
 
 }
 
-
 </script>
 
 
@@ -307,8 +306,6 @@ data.push([t, 1000.000]);
 var date_win_min = t.getTime();
 
 var date_win_max = date_win_min + 2*taxis_increment;
-
-var g = new Dygraph(document.getElementById("div_g"), data,
 
 {
 
@@ -348,6 +345,10 @@ g.updateOptions( { dateWindow : [date_win_min, date_win_max] } );
 };
 
 data.push([x, y]);
+
+<script type="text/javascript"> 
+data = butterworth.filter(data); 
+</script>
 
 if ((data.length&15)==15) g.updateOptions( { 'file': data } );
 
