@@ -91,10 +91,6 @@ g.updateOptions( { dateWindow : [date_win_min, date_win_max] } );
 
 };
 
-Butterworth butterworth = new Butterworth();
-butterworth.lowPass(4,0.01,1);
-data = butterworth.filter(data); 
-
 data.push([x, y]);
 
 
