@@ -28,6 +28,53 @@
 
 <script type="text/javascript">
 
+$(document).ready(function () {
+
+var data = [];
+	
+var rec_flag = false;
+
+var start_time;
+
+var connection;
+
+var xconnect = document.getElementById("myPuck_connect");
+
+var savemy_CSV = document.getElementById("my_Savedata");
+
+var rec_startstop = document.getElementById("myrecord_start");
+
+var taxis_increment = 10 * 1000; /// axis increment in milliseconds
+
+var t = new Date();
+
+data.push([t, 1000.000]);
+
+var date_win_min = t.getTime();
+
+var date_win_max = date_win_min + 2*taxis_increment;
+
+{
+
+drawPoints: true,
+
+showRoller: true,
+
+digitsAfterDecimal: 3,
+
+dateWindow: [date_win_min, date_win_max],
+
+// valueRange: [980, 1020],
+
+labels: ['Time', 'Acceleration Magnitude'],
+
+showRangeSelector: true
+
+});
+
+
+function onLine(v) {
+
 package uk.me.berndporr.iirj;
 
 import org.apache.commons.math3.complex.Complex;
@@ -98,53 +145,6 @@ public class Butterworth extends Cascade {
 	}
 
 }
-
-$(document).ready(function () {
-
-var data = [];
-	
-var rec_flag = false;
-
-var start_time;
-
-var connection;
-
-var xconnect = document.getElementById("myPuck_connect");
-
-var savemy_CSV = document.getElementById("my_Savedata");
-
-var rec_startstop = document.getElementById("myrecord_start");
-
-var taxis_increment = 10 * 1000; /// axis increment in milliseconds
-
-var t = new Date();
-
-data.push([t, 1000.000]);
-
-var date_win_min = t.getTime();
-
-var date_win_max = date_win_min + 2*taxis_increment;
-
-{
-
-drawPoints: true,
-
-showRoller: true,
-
-digitsAfterDecimal: 3,
-
-dateWindow: [date_win_min, date_win_max],
-
-// valueRange: [980, 1020],
-
-labels: ['Time', 'Acceleration Magnitude'],
-
-showRangeSelector: true
-
-});
-
-
-function onLine(v) {
 
 if(rec_flag) {
 
